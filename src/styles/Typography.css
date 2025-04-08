@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --font-mono: 'JetBrains Mono', monospace;
+  --spacing-unit: 1rem;
+  --border-color: rgba(255, 255, 255, 0.15);
+}
+
+.monospace-theme {
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 2.0rem;
+  margin-bottom: var(--spacing-unit);
+  padding-bottom: calc(var(--spacing-unit) / 2);
+}
+
+.project-item {
+  margin-bottom: calc(var(--spacing-unit));
+  padding-left: var(--spacing-unit);
+  border-left: 1px solid var(--border-color);
+}
+
+.skill-item {
+  display: inline-block;
+  margin-right: var(--spacing-unit);
+  margin-bottom: calc(var(--spacing-unit) / 2);
+  font-weight: 700;
+}
+
+.skill-category {
+  padding-left: var(--spacing-unit);
+  border-left: 1px solid var(--border-color);
+  margin-bottom: var(--spacing-unit);
+}
+
+.experience-item,
+.education-item {
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  padding-left: var(--spacing-unit);
+  border-left: 1px solid var(--border-color);
+}
+
+.contact-section {
+  padding: var(--spacing-unit) 0;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
