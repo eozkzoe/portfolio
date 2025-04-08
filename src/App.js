@@ -143,7 +143,7 @@ function App() {
       company: 'Republic of Singapore Air Force',
       position: 'WSO (FTR) Trainee',
       period: 'Oct 2018 - July 2021',
-      description: 'Managed',
+      description: 'Managed ~10 separate flying courses in flight, visa, health and safety currencies. I planned large scale activities with 200-300 participants, and forecasted manpower capacitie for overseas detachments. I supported flight scheduling and critical-for-flight systems and training',
       image: process.env.PUBLIC_URL + '/wso_ftr.jpg'
     }
   ];
