@@ -47,7 +47,7 @@ function App() {
     phone: '+6597913739',
     linkedin: 'https://linkedin.com/in/eozk',
     github: 'https://github.com/eozkzoe',
-    resume: '/resume.pdf'  // Add this line
+    resume: process.env.PUBLIC_URL + '/resume.pdf'  // Updated resume path
   };
   // Add state for snackbar
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -63,7 +63,7 @@ function App() {
   const projects = [
     {
       title: 'Mecatron',
-      description: 'Winner of SAUVC 2025! Software lead at NTU\'s Student-led Marine Robotics team. Leading ~10 SWEs in developing Behaviour Trees, localisation, object detection etc.',
+      description: 'Winner of <a href="https://sauvc.org/#teams" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>SAUVC 2025</a>! Bested 100+ teams from 20 countries. Software lead at NTU\'s Student-led Marine Robotics team. Leading ~10 SWEs in developing Behaviour Trees, localisation, object detection etc.',
       image: process.env.PUBLIC_URL + '/mecatron_sauvc.jpg',
       link: 'https://mecatron.sg'
     },
@@ -129,21 +129,21 @@ function App() {
       company: 'Fling Asia',
       position: 'Software Engineer',
       period: 'Dec 2023 - Apr 2024',
-      description: 'Developed commercial bulk QR labelling desktop software to support industry standard Zebra printers, and led marketing and product demonstrations at DHL and Ceva. Debugged crucial video-processing and core stock check report generation software',
+      description: 'Developed commercial bulk QR labelling desktop software to support industry standard Zebra printers, and led marketing and product demonstrations at DHL and Ceva. Debugged crucial video-processing, computer vision, and core stock check report generation software',
       image: process.env.PUBLIC_URL + '/flabel.png'
     },
     {
       company: 'Fling Asia',
       position: 'Engineering Intern',
       period: 'Dec 2023 - Apr 2024',
-      description: 'Led the design, fabrication, and feasibility testing of hardware additions such as drone lighting, quadcopter wing attachments. Contributed to key database management libraries and consolidated internal processes to an edge application',
+      description: 'Led the design, fabrication, and feasibility testing of hardware additions such as drone lighting and quadcopter wing attachments. Contributed to key database management libraries and consolidated internal processes to an edge application',
       image: process.env.PUBLIC_URL + '/aerobeam.png'
     },
     {
       company: 'Republic of Singapore Air Force',
       position: 'WSO (FTR) Trainee',
       period: 'Oct 2018 - July 2021',
-      description: 'Managed ~10 separate flying courses in flight, visa, health and safety currencies. I planned large scale activities with 200-300 participants, and forecasted manpower capacitie for overseas detachments. I supported flight scheduling and critical-for-flight systems and training',
+      description: 'Managed ~10 separate flying courses in flight, visa, health and safety currencies. I planned large scale activities with 200-300 participants, and forecasted manpower capacities for overseas detachments. I supported flight scheduling and critical life support systems',
       image: process.env.PUBLIC_URL + '/wso_ftr.jpg'
     }
   ];
@@ -158,7 +158,7 @@ function App() {
     {
       school: 'Technische Universität München',
       degree: 'Mechanical Engineering Exchange',
-      period: 'May 2021 - Aug 2025',
+      period: 'May 2024 - Aug 2024',
       description: '7 Modules @ 33 ECTS - Grade 2.5/5.0'
     }
   ];
@@ -173,8 +173,24 @@ function App() {
             <Grid container spacing={2} alignItems="center" justifyContent="space-between">
             <Grid item>
                 <Tooltip title="Download My Resume">
-                <IconButton href={contactInfo.resume} download color="inherit" sx={{gap: 1, display: 'flex', alignItems: 'center'}}>
-                <Typography variant="button" sx={{display: {xs : 'none', sm: 'block'}}}> Resume </Typography>
+                <IconButton 
+                    href={contactInfo.resume}
+                    download="Ong_Zheng_Kai_Ethan_Resume.pdf"
+                    color="inherit" 
+                    sx={{
+                        gap: 1, 
+                        display: 'flex', 
+                        alignItems: 'center',
+                        '&:hover': {
+                            color: 'primary.main',
+                            transform: 'scale(1.05)',
+                        },
+                        transition: 'all 0.2s'
+                    }}
+                >
+                    <Typography variant="button" sx={{display: {xs: 'none', sm: 'block'}}}>
+                        Resume
+                    </Typography>
                     <FaFileDownload size={15}/>
                 </IconButton>
                 </Tooltip>
@@ -246,7 +262,7 @@ function App() {
             </Box>
             <Typography variant="h5" gutterBottom> Hi! 😊 I'm Ethan </Typography>
             <Typography variant="body1" color="text.secondary" paragraph>
-              I'm a final-year Mechanical Engineering student at Nanyang Technological University, Singapore. I specialise in Robotics 🤖 with a strong passion for software development. I recently lead Team Mecatron's software division to victory at SAUVC 2025, so lookout for our next big thing 😉. Grit and hunger drives success, no pain no gain! 🦾
+              I'm a final-year Mechanical Engineering student at Nanyang Technological University, Singapore. I specialise in Robotics 🤖 with a strong passion for software development. I recently led Team Mecatron's software division to victory at SAUVC 2025, so lookout for our next big thing 😉. Grit and hunger drives success, no pain no gain! 🦾
             </Typography>
           </Grid>
 
@@ -275,7 +291,7 @@ function App() {
                 color="text.secondary" 
                 sx={{ display: 'block', textAlign: 'center', mt: 1 }}
             >
-                Gaussian Splatting implementation inspired by the work of {' '}
+                Gaussian Splatting implementation adapted from {' '}
                 <a 
                     href="https://github.com/pmndrs/drei" 
                     target="_blank" 
@@ -308,7 +324,7 @@ function App() {
                   <Box
                     sx={{
                       width: '100%',
-                      height: 250, // Fixed height for all images
+                      height: 250,
                       mb: 2,
                       overflow: 'hidden',
                       borderRadius: 2
@@ -325,7 +341,11 @@ function App() {
                     />
                   </Box>
                   <Typography variant="h6" sx={{ fontWeight: 700 }}>{project.title}</Typography>
-                  <Typography variant="body2" color="text.secondary">{project.description}</Typography>
+                  <Typography 
+                    variant="body2" 
+                    color="text.secondary" 
+                    dangerouslySetInnerHTML={{ __html: project.description }}
+                  />
                   </a>
                 </div>
               </Grid>
