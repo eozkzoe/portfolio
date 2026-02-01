@@ -4,10 +4,32 @@ import { FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, FaDatabase, 
 import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDavinciresolve, SiArduino } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
 import { Snackbar } from '@mui/material';
-import { Environment, OrbitControls, Splat} from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { Environment, OrbitControls } from '@react-three/drei';
+import { Canvas, useLoader, Suspense } from '@react-three/fiber';
+import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js';
+import * as THREE from 'three';
 import './App.css';
 import './styles/Typography.css';
+
+function PlyModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
+  const geometry = useLoader(PLYLoader, url);
+  React.useEffect(() => {
+    if (geometry && !geometry.attributes.normal) {
+      geometry.computeVertexNormals();
+    }
+  }, [geometry]);
+  const hasColors = geometry.attributes.color !== undefined;
+  return (
+    <mesh geometry={geometry} position={position} scale={scale}>
+      <meshStandardMaterial
+        vertexColors={hasColors}
+        color={hasColors ? undefined : '#cccccc'}
+        side={THREE.DoubleSide}
+        flatShading
+      />
+    </mesh>
+  );
+}
 
 const darkTheme = createTheme({
   typography: {
@@ -281,13 +303,13 @@ function App() {
                     gl={{ antialias: true }}
                 >
                     <color attach="background" args={['#1a1a1a']} />
-                    <Splat
-                      src={process.env.PUBLIC_URL + '/maltese.splat'}
-                      position={[0, 0.3, 0]}
-                      scale={[20.0, 20.0, 20.0]}
-                      alphaHash
-                      alphaTest={0.1}
-                    />
+                    <Suspense fallback={null}>
+                      <PlyModel
+                        url={process.env.PUBLIC_URL + '/maltese.ply'}
+                        position={[0, 0.3, 0]}
+                        scale={[20.0, 20.0, 20.0]}
+                      />
+                    </Suspense>
                     <OrbitControls enableDamping dampingFactor={0.05} />
                     <Environment preset="sunset" />
                 </Canvas>
