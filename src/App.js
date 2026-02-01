@@ -4,12 +4,40 @@ import { FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, FaDatabase, 
 import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDavinciresolve, SiArduino } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
 import { Snackbar } from '@mui/material';
-import { Environment, OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas, useLoader, Suspense } from '@react-three/fiber';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js';
 import * as THREE from 'three';
 import './App.css';
 import './styles/Typography.css';
+
+function isWebGLAvailable() {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+  } catch {
+    return false;
+  }
+}
+
+class ViewerErrorBoundary extends React.Component {
+  state = { hasError: false };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) return this.props.fallback;
+    return this.props.children;
+  }
+}
+
+function GlbModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
+  const { scene } = useGLTF(url, false);
+  const cloned = React.useMemo(() => scene.clone(), [scene]);
+  return (
+    <primitive object={cloned} position={position} scale={scale} />
+  );
+}
 
 function PlyModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
   const geometry = useLoader(PLYLoader, url);
@@ -28,6 +56,52 @@ function PlyModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
         flatShading
       />
     </mesh>
+  );
+}
+
+function ModelViewer({ modelUrl, format, position, scale }) {
+  return (
+    <Suspense fallback={null}>
+      {format === 'glb' ? (
+        <GlbModel url={modelUrl} position={position} scale={scale} />
+      ) : (
+        <PlyModel url={modelUrl} position={position} scale={scale} />
+      )}
+    </Suspense>
+  );
+}
+
+function Viewer3DWithFormat() {
+  const base = process.env.PUBLIC_URL || '';
+  const [state, setState] = React.useState({ ready: false, format: 'ply', url: base + '/maltese.ply' });
+  React.useEffect(() => {
+    const glbUrl = base + '/maltese.glb';
+    fetch(glbUrl, { method: 'HEAD' })
+      .then((r) => setState({ ready: true, format: r.ok ? 'glb' : 'ply', url: r.ok ? glbUrl : base + '/maltese.ply' }))
+      .catch(() => setState({ ready: true, format: 'ply', url: base + '/maltese.ply' }));
+  }, [base]);
+  if (!state.ready) {
+    return (
+      <Box sx={{ width: '100%', height: '100%', minHeight: 360, bgcolor: '#1a1a1a', borderRadius: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Typography variant="body2" color="text.secondary">Loading 3D…</Typography>
+      </Box>
+    );
+  }
+  return (
+    <Canvas
+      camera={{ position: [0, 0, 2], fov: 75, near: 0.1, far: 1000 }}
+      gl={{ antialias: true }}
+    >
+      <color attach="background" args={['#1a1a1a']} />
+      <ModelViewer
+        modelUrl={state.url}
+        format={state.format}
+        position={[0, 0.3, 0]}
+        scale={[20.0, 20.0, 20.0]}
+      />
+      <OrbitControls enableDamping dampingFactor={0.05} />
+      <Environment preset="sunset" />
+    </Canvas>
   );
 }
 
@@ -289,37 +363,78 @@ function App() {
           </Grid>
 
           
-          {/* Right Panel - Gaussian Splatting */}
+          {/* Right Panel - 3D model */}
           <Grid item xs={12} md={8}>
-            <Typography variant="h6" sx={{ mb: 1 }}>Gaussian Splatting with my coding buddy!</Typography>
+            <Typography variant="h6" sx={{ mb: 1 }}>3D model — my coding buddy!</Typography>
             <Box sx={{ width: '100%', height: '60vh', position: 'relative' }}>
-                <Canvas
-                    camera={{ 
-                        position: [0, 0, 2],
-                        fov: 75,
-                        near: 0.1,
-                        far: 1000
+              <ViewerErrorBoundary
+                fallback={
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      minHeight: 360,
+                      bgcolor: '#1a1a1a',
+                      borderRadius: 2,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'text.secondary',
+                      p: 2,
+                      textAlign: 'center',
                     }}
-                    gl={{ antialias: true }}
-                >
-                    <color attach="background" args={['#1a1a1a']} />
-                    <Suspense fallback={null}>
-                      <PlyModel
-                        url={process.env.PUBLIC_URL + '/maltese.ply'}
-                        position={[0, 0.3, 0]}
-                        scale={[20.0, 20.0, 20.0]}
-                      />
-                    </Suspense>
-                    <OrbitControls enableDamping dampingFactor={0.05} />
-                    <Environment preset="sunset" />
-                </Canvas>
+                  >
+                    <Box
+                      component="img"
+                      src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
+                      alt="Fallback"
+                      sx={{ width: 120, height: 120, borderRadius: 2, objectFit: 'cover', mb: 2, opacity: 0.9 }}
+                    />
+                    <Typography variant="body2">
+                      3D viewer unavailable in this browser. Try Chrome or Firefox for the interactive model.
+                    </Typography>
+                  </Box>
+                }
+              >
+                {!isWebGLAvailable() ? (
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      minHeight: 360,
+                      bgcolor: '#1a1a1a',
+                      borderRadius: 2,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'text.secondary',
+                      p: 2,
+                      textAlign: 'center',
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
+                      alt="Fallback"
+                      sx={{ width: 120, height: 120, borderRadius: 2, objectFit: 'cover', mb: 2, opacity: 0.9 }}
+                    />
+                    <Typography variant="body2">
+                      WebGL not supported. Try Chrome or Firefox for the interactive 3D model.
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Viewer3DWithFormat />
+                )}
+              </ViewerErrorBoundary>
             </Box>
             <Typography 
                 variant="caption" 
                 color="text.secondary" 
                 sx={{ display: 'block', textAlign: 'center', mt: 1 }}
             >
-                Gaussian Splatting implementation adapted from {' '}
+                For best Safari support, add <code>maltese.glb</code> (convert from PLY in Blender). Uses{' '}
                 <a 
                     href="https://github.com/pmndrs/drei" 
                     target="_blank" 
