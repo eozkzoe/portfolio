@@ -281,7 +281,13 @@ function App() {
                     gl={{ antialias: true }}
                 >
                     <color attach="background" args={['#1a1a1a']} />
-                    <Splat src={process.env.PUBLIC_URL + '/maltese.ply'} position={[0, 0.3, 0]} scale={[20.0, 20.0, 20.0]}/>
+                    <Splat
+                      src={process.env.PUBLIC_URL + '/maltese.splat'}
+                      position={[0, 0.3, 0]}
+                      scale={[20.0, 20.0, 20.0]}
+                      alphaHash
+                      alphaTest={0.1}
+                    />
                     <OrbitControls enableDamping dampingFactor={0.05} />
                     <Environment preset="sunset" />
                 </Canvas>
