@@ -5,7 +5,8 @@ import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDav
 import { TbView360Number } from 'react-icons/tb';
 import { Snackbar } from '@mui/material';
 import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
-import { Canvas, useLoader, Suspense } from '@react-three/fiber';
+import { Canvas, useLoader } from '@react-three/fiber';
+import { Suspense } from 'react';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js';
 import * as THREE from 'three';
 import './App.css';
@@ -214,6 +215,13 @@ function App() {
   };
 
   const experience = [
+    {
+      company: 'Shopee',
+      position: 'Project Manager',
+      period: 'Jul. 2025 – Present',
+      description: 'Managing AI Chatbot Projects across Backend, Data Science, Ops, and Product teams in China, Indonesia, and Singapore to improve customer satisfaction, deflection rates, reduce hallucinations, and generate shop sales. Coordinating PRDs, technical discussions, cross-team timelines, and conducting weekly/daily standups to solve bad cases during live testing, forecast technical and resource blockers, and ensure SLA and SOP adherence. Leveraged Jira APIs, SQL, Python scripts, and Hive Tables to monitor feature and tech project release and request frequency health and manpower efficiency across all AI product-lines in Shopee. Overseeing transitions from rule-based to skill-based agents, issue to intent KBs, and auto-QA/tagging/training. Launched a project management multi-agent bot and knowledge base to guide process and team onboarding, automate administrative tasks, and provide an interface to sync data across multiple project trackers & platforms',
+      image: process.env.PUBLIC_URL + '/haltere.png'
+    },
     {
       company: 'Panasonic R&D Center Singapore',
       position: 'Research Intern',
