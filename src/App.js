@@ -4,7 +4,7 @@ import { FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, FaDatabase, 
 import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDavinciresolve, SiArduino } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
 import { Snackbar } from '@mui/material';
-import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
+import { Environment, OrbitControls, useGLTF, Splat } from '@react-three/drei';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { Suspense } from 'react';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js';
@@ -63,7 +63,9 @@ function PlyModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
 function ModelViewer({ modelUrl, format, position, scale }) {
   return (
     <Suspense fallback={null}>
-      {format === 'glb' ? (
+      {format === 'splat' ? (
+        <Splat src={modelUrl} position={position} scale={scale} />
+      ) : format === 'glb' ? (
         <GlbModel url={modelUrl} position={position} scale={scale} />
       ) : (
         <PlyModel url={modelUrl} position={position} scale={scale} />
@@ -76,10 +78,23 @@ function Viewer3DWithFormat() {
   const base = process.env.PUBLIC_URL || '';
   const [state, setState] = React.useState({ ready: false, format: 'ply', url: base + '/maltese.ply' });
   React.useEffect(() => {
+    const splatUrl = base + '/maltese.splat';
     const glbUrl = base + '/maltese.glb';
-    fetch(glbUrl, { method: 'HEAD' })
-      .then((r) => setState({ ready: true, format: r.ok ? 'glb' : 'ply', url: r.ok ? glbUrl : base + '/maltese.ply' }))
-      .catch(() => setState({ ready: true, format: 'ply', url: base + '/maltese.ply' }));
+
+    fetch(splatUrl, { method: 'HEAD' })
+      .then((r) => {
+        if (r.ok) {
+          setState({ ready: true, format: 'splat', url: splatUrl });
+        } else {
+          return fetch(glbUrl, { method: 'HEAD' })
+            .then((r2) => setState({ ready: true, format: r2.ok ? 'glb' : 'ply', url: r2.ok ? glbUrl : base + '/maltese.ply' }));
+        }
+      })
+      .catch(() => {
+        fetch(glbUrl, { method: 'HEAD' })
+          .then((r2) => setState({ ready: true, format: r2.ok ? 'glb' : 'ply', url: r2.ok ? glbUrl : base + '/maltese.ply' }))
+          .catch(() => setState({ ready: true, format: 'ply', url: base + '/maltese.ply' }));
+      });
   }, [base]);
   if (!state.ready) {
     return (

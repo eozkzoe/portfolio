@@ -3,4 +3,6 @@ import App from './App';
 
 test('renders without crashing', () => {
   render(<App />);
+  const linkElement = screen.getByText(/I'm Ethan/i);
+  expect(linkElement).toBeInTheDocument();
 });
