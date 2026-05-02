@@ -4,31 +4,13 @@ import { FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, FaDatabase, 
 import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDavinciresolve, SiArduino } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
 import { Snackbar } from '@mui/material';
-import { Environment, OrbitControls, useGLTF, Splat } from '@react-three/drei';
+import { Environment, OrbitControls, Splat } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import './App.css';
 import './styles/Typography.css';
 
-function isWebGLAvailable() {
-  try {
-    const canvas = document.createElement('canvas');
-    return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-  } catch {
-    return false;
-  }
-}
 
-class ViewerErrorBoundary extends React.Component {
-  state = { hasError: false };
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-  render() {
-    if (this.state.hasError) return this.props.fallback;
-    return this.props.children;
-  }
-}
 
 
 
@@ -332,74 +314,14 @@ function App() {
           <Grid item xs={12} md={8}>
             <Typography variant="h6" sx={{ mb: 1 }}>3D model — my coding buddy!</Typography>
             <Box sx={{ width: '100%', height: '60vh', position: 'relative' }}>
-              <ViewerErrorBoundary
-                fallback={
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: '100%',
-                      minHeight: 360,
-                      bgcolor: '#1a1a1a',
-                      borderRadius: 2,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'text.secondary',
-                      p: 2,
-                      textAlign: 'center',
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
-                      alt="Fallback"
-                      sx={{ width: 120, height: 120, borderRadius: 2, objectFit: 'cover', mb: 2, opacity: 0.9 }}
-                    />
-                    <Typography variant="body2">
-                      3D viewer unavailable in this browser. Try Chrome or Firefox for the interactive model.
-                    </Typography>
-                  </Box>
-                }
-              >
-                {!isWebGLAvailable() ? (
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: '100%',
-                      minHeight: 360,
-                      bgcolor: '#1a1a1a',
-                      borderRadius: 2,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'text.secondary',
-                      p: 2,
-                      textAlign: 'center',
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
-                      alt="Fallback"
-                      sx={{ width: 120, height: 120, borderRadius: 2, objectFit: 'cover', mb: 2, opacity: 0.9 }}
-                    />
-                    <Typography variant="body2">
-                      WebGL not supported. Try Chrome or Firefox for the interactive 3D model.
-                    </Typography>
-                  </Box>
-                ) : (
-                  <Viewer3DWithFormat />
-                )}
-              </ViewerErrorBoundary>
+              <Viewer3DWithFormat />
             </Box>
             <Typography 
                 variant="caption" 
                 color="text.secondary" 
                 sx={{ display: 'block', textAlign: 'center', mt: 1 }}
             >
-                For best Safari support, add <code>maltese.glb</code> (convert from PLY in Blender). Uses{' '}
+                Uses{' '}
                 <a 
                     href="https://github.com/pmndrs/drei" 
                     target="_blank" 
