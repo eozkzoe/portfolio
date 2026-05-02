@@ -220,7 +220,7 @@ function App() {
           <Grid container spacing={4}>
             {/* Left Column: Pic + Intro */}
             <Grid item xs={12} md={5}>
-              <Box sx={{ maxWidth: '400px', ml: 'auto' }}>
+              <Box sx={{ maxWidth: '400px' }}>
                 <Box sx={{ mb: 4 }}>
                   <Paper
                     className="glass-card"
