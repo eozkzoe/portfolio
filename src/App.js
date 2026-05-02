@@ -5,16 +5,15 @@ import {
   useScrollTrigger, Slide
 } from '@mui/material';
 import { 
-  FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, 
+  FaLinkedin, FaGithub, FaJs, FaPython, 
   FaDatabase, FaReact, FaGitAlt, FaDocker, FaFileDownload, 
-  FaMicrosoft, FaLinux, FaUnity, FaArrowRight 
+  FaMicrosoft, FaLinux, FaUnity 
 } from 'react-icons/fa';
 import { 
   SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, 
   SiAdobephotoshop, SiDavinciresolve, SiArduino 
 } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
-import { motion } from 'framer-motion';
 import './App.css';
 import './index.css';
 
