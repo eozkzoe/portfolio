@@ -216,45 +216,47 @@ function App() {
         </HideOnScroll>
 
         {/* Hero Section */}
-        <Container maxWidth="xl" sx={{ py: 8 }}>
-          <Grid container spacing={6}>
+        <Container maxWidth="lg" sx={{ py: 8 }}>
+          <Grid container spacing={4}>
             {/* Left Column: Pic + Intro */}
             <Grid item xs={12} md={5}>
-              <Box sx={{ maxWidth: '400px', mb: 4 }}>
-                <Paper
-                  className="glass-card"
-                  sx={{
-                    width: '100%',
-                    paddingTop: '100%',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    borderRadius: 4,
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
-                    alt="Ethan Ong"
+              <Box sx={{ maxWidth: '400px', ml: 'auto' }}>
+                <Box sx={{ mb: 4 }}>
+                  <Paper
+                    className="glass-card"
                     sx={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
                       width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
+                      paddingTop: '100%',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      borderRadius: 4,
                     }}
-                  />
-                </Paper>
+                  >
+                    <Box
+                      component="img"
+                      src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
+                      alt="Ethan Ong"
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </Paper>
+                </Box>
+                <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}> Hi! 😊 I'm Ethan </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  I'm currently working as a Project Manager at Shopee overseeing AI Chatbot Projects for both Customer Service and Shop Growth. I studied Mechanical Engineering with a Specialisation in Robotics 🤖 at Nanyang Technological University, Singapore. I have a strong passion for software development, working in large research firms, startups, and competitions. Grit and hunger drives success, no pain no gain! 🦾
+                </Typography>
               </Box>
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}> Hi! 😊 I'm Ethan </Typography>
-              <Typography variant="body1" color="text.secondary" paragraph>
-                I'm currently working as a Project Manager at Shopee overseeing AI Chatbot Projects for both Customer Service and Shop Growth. I studied Mechanical Engineering with a Specialisation in Robotics 🤖 at Nanyang Technological University, Singapore. I have a strong passion for software development, working in large research firms, startups, and competitions. Grit and hunger drives success, no pain no gain! 🦾
-              </Typography>
             </Grid>
 
             {/* Right Column: PDF Viewer */}
             <Grid item xs={12} md={7}>
-              <Box>
+              <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h6" gutterBottom sx={{ mb: 3, fontWeight: 700 }}>
                   Check out my feature by NTU!
                 </Typography>
@@ -262,8 +264,8 @@ function App() {
                   className="glass-card" 
                   sx={{ 
                     width: '100%', 
-                    maxWidth: '600px',
-                    height: { xs: '500px', md: '850px' }, 
+                    flexGrow: 1,
+                    minHeight: { xs: '500px', md: '850px' }, 
                     overflow: 'hidden',
                     borderRadius: 2
                   }}
