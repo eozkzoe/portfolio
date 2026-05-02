@@ -4,10 +4,9 @@ import { FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, FaDatabase, 
 import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDavinciresolve, SiArduino } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
 import { Snackbar } from '@mui/material';
-import { Environment, OrbitControls, useGLTF, Splat } from '@react-three/drei';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js';
 import * as THREE from 'three';
 import './App.css';
 import './styles/Typography.css';
@@ -41,25 +40,6 @@ function GlbModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
   );
 }
 
-function PlyModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
-  const geometry = useLoader(PLYLoader, url);
-  React.useEffect(() => {
-    if (geometry && !geometry.attributes.normal) {
-      geometry.computeVertexNormals();
-    }
-  }, [geometry]);
-  const hasColors = geometry.attributes.color !== undefined;
-  return (
-    <mesh geometry={geometry} position={position} scale={scale}>
-      <meshStandardMaterial
-        vertexColors={hasColors}
-        color={hasColors ? undefined : '#cccccc'}
-        side={THREE.DoubleSide}
-        flatShading
-      />
-    </mesh>
-  );
-}
 
 function AdvancedSplat({ url, position = [0, 0, 0], scale = [1, 1, 1], alphaTest = 0.1 }) {
   const viewer = React.useMemo(() => {
