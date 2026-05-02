@@ -189,20 +189,25 @@ function App() {
           <Box sx={{ position: 'sticky', top: 0, zIndex: 1000, bgcolor: 'background.paper', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             <Container maxWidth="lg">
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 2 }}>
-                <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                  Ethan Ong
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
+                <Button 
+                  variant="outlined" 
+                  startIcon={<FaFileDownload />}
+                  href={contactInfo.resume}
+                  download
+                  size="small"
+                >
+                  Resume
+                </Button>
+                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                   <IconButton href={contactInfo.github} target="_blank" color="inherit"><FaGithub size={20} /></IconButton>
                   <IconButton href={contactInfo.linkedin} target="_blank" color="inherit"><FaLinkedin size={20} /></IconButton>
                   <Button 
-                    variant="outlined" 
-                    startIcon={<FaFileDownload />}
-                    href={contactInfo.resume}
-                    download
+                    variant="contained" 
                     size="small"
+                    onClick={() => handleCopy(contactInfo.email, 'Email copied!')}
+                    sx={{ ml: 1 }}
                   >
-                    Resume
+                    Contact Me
                   </Button>
                 </Box>
               </Box>
@@ -245,12 +250,9 @@ function App() {
               <Typography variant="body1" color="text.secondary" paragraph>
                 I'm currently working as a Project Manager at Shopee overseeing AI Chatbot Projects for both Customer Service and Shop Growth. I studied Mechanical Engineering with a Specialisation in Robotics 🤖 at Nanyang Technological University, Singapore. I have a strong passion for software development, working in large research firms, startups, and competitions. Grit and hunger drives success, no pain no gain! 🦾
               </Typography>
-              <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
+              <Box sx={{ mb: 4 }}>
                 <Button variant="contained" onClick={() => handleCopy(contactInfo.email, 'Email copied!')}>
                   Contact Me
-                </Button>
-                <Button variant="outlined" href={contactInfo.linkedin} target="_blank">
-                  LinkedIn
                 </Button>
               </Box>
             </Grid>
@@ -265,7 +267,7 @@ function App() {
                   className="glass-card" 
                   sx={{ 
                     width: '100%', 
-                    height: { xs: '400px', md: '700px' }, 
+                    height: { xs: '300px', md: '450px' }, 
                     overflow: 'hidden',
                     borderRadius: 2
                   }}
