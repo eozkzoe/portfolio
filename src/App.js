@@ -7,7 +7,6 @@ import { Snackbar } from '@mui/material';
 import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-import * as THREE from 'three';
 import './App.css';
 import './styles/Typography.css';
 import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
