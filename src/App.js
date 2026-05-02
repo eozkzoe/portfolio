@@ -30,13 +30,6 @@ class ViewerErrorBoundary extends React.Component {
   }
 }
 
-function GlbModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
-  const { scene } = useGLTF(url, false);
-  const cloned = React.useMemo(() => scene.clone(), [scene]);
-  return (
-    <primitive object={cloned} position={position} scale={scale} />
-  );
-}
 
 
 function ModelViewer() {
