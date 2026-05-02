@@ -5,12 +5,12 @@ import {
   useScrollTrigger, Slide
 } from '@mui/material';
 import { 
-  FaLinkedin, FaEnvelope, FaGithub, FaJs, FaPython, 
-  FaDatabase, FaDocker, FaFileDownload, 
-  FaLinux, FaUnity, FaArrowRight 
+  FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, 
+  FaDatabase, FaReact, FaGitAlt, FaDocker, FaFileDownload, 
+  FaMicrosoft, FaLinux, FaUnity, FaArrowRight 
 } from 'react-icons/fa';
 import { 
-  SiCplusplus, SiWebgl, SiThreedotjs, SiRos, 
+  SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, 
   SiAdobephotoshop, SiDavinciresolve, SiArduino 
 } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
@@ -18,40 +18,28 @@ import { motion } from 'framer-motion';
 import './App.css';
 import './index.css';
 
-const theme = createTheme({
+const darkTheme = createTheme({
   typography: {
-    fontFamily: '"Outfit", sans-serif',
-    h1: { fontWeight: 700, fontSize: '4.5rem', letterSpacing: '-0.02em' },
-    h2: { fontWeight: 700, fontSize: '3rem', letterSpacing: '-0.01em' },
-    h3: { fontWeight: 600, fontSize: '2.25rem' },
-    h4: { fontWeight: 600, fontSize: '1.75rem' },
-    h5: { fontWeight: 600, fontSize: '1.25rem' },
-    h6: { fontWeight: 600, fontSize: '1.1rem' },
-    body1: { fontSize: '1.1rem', lineHeight: 1.7 },
+    fontFamily: '"JetBrains Mono", monospace',
+    h4: {
+      fontWeight: 700,
+    },
+    h6: {
+      fontWeight: 700,
+    },
   },
   palette: {
     mode: 'dark',
-    primary: { main: '#6366f1' },
-    secondary: { main: '#a855f7' },
+    primary: {
+      main: '#90caf9',
+    },
     background: {
-      default: '#0a0a0c',
-      paper: 'rgba(255, 255, 255, 0.03)',
+      default: '#121212',
+      paper: '#1e1e1e',
     },
     text: {
-      primary: '#f8fafc',
-      secondary: '#94a3b8',
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: '12px',
-          textTransform: 'none',
-          fontWeight: 600,
-          padding: '10px 24px',
-        },
-      },
+      primary: '#ffffff',
+      secondary: '#b0b0b0',
     },
   },
 });
@@ -90,41 +78,43 @@ function App() {
       company: 'Shopee',
       position: 'Project Manager',
       period: 'Jul. 2025 – Present',
-      description: 'Managing AI Chatbot Projects across Backend, Data Science, Ops, and Product teams. Overseeing transitions from rule-based to skill-based agents and launching a project management multi-agent bot.',
-      image: process.env.PUBLIC_URL + '/haltere.png'
+      description: 'Managing AI Chatbot Projects across Backend, Data Science, Ops, and Product teams in China, Indonesia, and Singapore to improve customer satisfaction, deflection rates, reduce hallucinations, and generate shop sales. Coordinating PRDs, technical discussions, cross-team timelines, and conducting weekly/daily standups to solve bad cases during live testing, forecast technical and resource blockers, and ensure SLA and SOP adherence. Leveraged Jira APIs, SQL, Python scripts, and Hive Tables to monitor feature and tech project release and request frequency health and manpower efficiency across all AI product-lines in Shopee. Overseeing transitions from rule-based to skill-based agents, issue to intent KBs, and auto-QA/tagging/training. Launched a project management multi-agent bot and knowledge base to guide process and team onboarding, automate administrative tasks, and provide an interface to sync data across multiple project trackers & platforms',
+      image: process.env.PUBLIC_URL + '/shopee_exp_photo.jpeg'
     },
     {
-      company: 'Hyundai Motor Group',
+      company: 'Hyundai Motor Group Innovation Center Singapore',
       position: 'Student Researcher',
       period: 'Aug. 2024 – May 2025',
-      description: 'Improved digital reconstruction of car parts using 3D Gaussian Splatting for vision-based motion-planning.',
+      description: 'Improved digital reconstruction of car parts using 3D Gaussian Splatting for vision-based motion-planning. Optimised image datasets, replanned robotic arm trajectories, and performed studies on point cloud and computer vision implementations.',
       image: process.env.PUBLIC_URL + '/hmgics.jpg'
     },
     {
-      company: 'Panasonic R&D',
+      company: 'Panasonic R&D Center Singapore',
       position: 'Research Intern',
       period: 'Jan 2025 - Present',
-      description: 'Researching 3D reconstruction techniques (SLAM, Gaussian Splatting). Developing in Three.js and GLSL.',
+      description: 'I conduct cutting edge research on 3D reconstruction techniques such as SLAM and Gaussian Splatting. My main tasks revolve around WebGL development in Three.JS and GLSL to improve web-based splat renderers. I also survey, test, and implement experimental software and research papers',
       image: process.env.PUBLIC_URL + '/3d_recon.jpeg'
     },
-  ];
-
-  const projects = [
     {
-      title: 'Mecatron',
-      description: 'Winner of SAUVC 2025! Led software development for an autonomous underwater vehicle.',
-      image: process.env.PUBLIC_URL + '/mecatron_sauvc.jpg',
-      link: 'https://mecatron.sg'
+      company: 'Fling Asia',
+      position: 'Software Engineer',
+      period: 'Dec 2023 - Apr 2024',
+      description: 'Developed commercial bulk QR labelling desktop software to support industry standard Zebra printers, and led marketing and product demonstrations at DHL and Ceva. Debugged crucial video-processing, computer vision, and core stock check report generation software',
+      image: process.env.PUBLIC_URL + '/flabel.png'
     },
     {
-      title: 'Dyson-NTU Challenge',
-      description: 'System design and fabrication of a full consumer product from scratch.',
-      image: process.env.PUBLIC_URL + '/dyson_submission.png'
+      company: 'Fling Asia',
+      position: 'Engineering Intern',
+      period: 'Dec 2023 - Apr 2024',
+      description: 'Led the design, fabrication, and feasibility testing of hardware additions such as drone lighting and quadcopter wing attachments. Contributed to key database management libraries and consolidated internal processes to an edge application',
+      image: process.env.PUBLIC_URL + '/aerobeam.png'
     },
     {
-      title: 'Espressif U Amaze',
-      description: '1st Runner Up! Created an unmanned vehicle for maze navigation.',
-      image: process.env.PUBLIC_URL + '/espressif.jpeg'
+      company: 'Republic of Singapore Air Force',
+      position: 'WSO (FTR) Trainee',
+      period: 'Oct 2018 - July 2021',
+      description: 'Managed ~10 separate flying courses in flight, visa, health and safety currencies. I planned large scale activities with 200-300 participants, and forecasted manpower capacities for overseas detachments. I supported flight scheduling and critical life support systems',
+      image: process.env.PUBLIC_URL + '/wso_ftr.jpg'
     }
   ];
 
@@ -143,50 +133,75 @@ function App() {
     }
   ];
 
-  const skillGroups = {
-    'Languages & Dev': [
+  const projects = [
+    {
+      title: 'Mecatron',
+      description: 'Winner of SAUVC 2025! Bested 100+ teams from 20 countries. Software lead at NTU\'s Student-led Marine Robotics team. Leading ~10 SWEs in developing Behaviour Trees, localisation, object detection etc.',
+      image: process.env.PUBLIC_URL + '/mecatron_sauvc.jpg',
+      link: 'https://mecatron.sg'
+    },
+    {
+      title: 'Dyson-NTU Product Development Challenge',
+      description: 'Perform market analysis and system design to fabricate an entire product from scratch!',
+      image: process.env.PUBLIC_URL + '/dyson_submission.png'
+    },
+    {
+      title: 'ESPRESSIF Systems U Amaze Venture',
+      description: '1st Runner Up! Created a unique unmanned vehicle which completes an obstacle-laden maze in the shortest time',
+      image: process.env.PUBLIC_URL + '/espressif.jpeg'
+    }
+  ];
+
+  const skills = {
+    'Programming': [
       { name: 'Python', icon: FaPython },
       { name: 'C++', icon: SiCplusplus },
+      { name: 'C', icon: SiC },
       { name: 'JavaScript', icon: FaJs },
       { name: 'SQL', icon: FaDatabase },
       { name: 'GLSL', icon: SiWebgl },
     ],
-    'Robotics & Tools': [
+    'Tools': [
       { name: 'ROS', icon: SiRos },
-      { name: 'Three.js', icon: SiThreedotjs },
+      { name: 'Git', icon: FaGitAlt },
       { name: 'Docker', icon: FaDocker },
       { name: 'Linux', icon: FaLinux },
       { name: 'Unity', icon: FaUnity },
       { name: 'Arduino', icon: SiArduino },
+      { name: 'React', icon: FaReact },
+      { name: 'Three.js', icon: SiThreedotjs },
+      { name: 'Fusion360', icon: TbView360Number },
+      { name: 'Microsoft Office', icon: FaMicrosoft }
     ],
-    'Creative & Others': [
+    'Creative': [
       { name: 'Photoshop', icon: SiAdobephotoshop },
       { name: 'DaVinci Resolve', icon: SiDavinciresolve },
-      { name: 'Fusion360', icon: TbView360Number },
-    ]
+    ],
+    'Languages': ['English', 'Mandarin']
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Box className="App">
         
         {/* Navigation */}
         <HideOnScroll>
-          <Box className="sticky-header">
+          <Box sx={{ position: 'sticky', top: 0, zIndex: 1000, bgcolor: 'background.paper', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             <Container maxWidth="lg">
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 2 }}>
-                <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
+                <Typography variant="h5" sx={{ fontWeight: 700 }}>
                   Ethan Ong
                 </Typography>
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: 'flex', gap: 1 }}>
                   <IconButton href={contactInfo.github} target="_blank" color="inherit"><FaGithub size={20} /></IconButton>
                   <IconButton href={contactInfo.linkedin} target="_blank" color="inherit"><FaLinkedin size={20} /></IconButton>
                   <Button 
-                    variant="contained" 
+                    variant="outlined" 
                     startIcon={<FaFileDownload />}
                     href={contactInfo.resume}
                     download
+                    size="small"
                   >
                     Resume
                   </Button>
@@ -197,239 +212,146 @@ function App() {
         </HideOnScroll>
 
         {/* Hero Section */}
-        <Box className="hero-section">
-          <div className="hero-blob" style={{ top: '10%', left: '10%' }}></div>
-          <div className="hero-blob" style={{ bottom: '20%', right: '10%', background: 'radial-gradient(circle, var(--secondary) 0%, transparent 70%)' }}></div>
-          
-          <Container maxWidth="lg">
-            <Grid container spacing={6} alignItems="center">
-              <Grid item xs={12} md={7}>
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
+        <Container maxWidth="lg" sx={{ py: 8 }}>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} md={4}>
+              <Box sx={{ mb: { xs: 3, md: 0 } }}>
+                <Paper
+                  className="glass-card"
+                  sx={{
+                    width: '100%',
+                    paddingTop: '100%',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: 4,
+                  }}
                 >
-                  <Typography variant="h1" gutterBottom>
-                    Crafting the future of <span className="gradient-text">Robotics</span>
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: '600px' }}>
-                    Final-year Mechanical Engineering student at NTU specializing in Robotics & Software. 
-                    Passionate about 3D reconstruction, computer vision, and building autonomous systems.
-                  </Typography>
-                  <Box sx={{ display: 'flex', gap: 2 }}>
-                    <Button variant="contained" size="large" onClick={() => handleCopy(contactInfo.email, 'Email copied!')}>
-                      Contact Me
-                    </Button>
-                    <Button variant="outlined" size="large" endIcon={<FaArrowRight />} onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}>
-                      View Projects
-                    </Button>
-                  </Box>
-                </motion.div>
-              </Grid>
-              <Grid item xs={12} md={5}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  <Box sx={{ position: 'relative' }}>
-                    <Box
-                      component="img"
-                      src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
-                      alt="Ethan Ong"
-                      className="rounded-image"
-                      sx={{ width: '100%', maxWidth: '400px', display: 'block', margin: 'auto' }}
-                    />
-                  </Box>
-                </motion.div>
-              </Grid>
+                  <Box
+                    component="img"
+                    src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
+                    alt="Ethan Ong"
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                </Paper>
+              </Box>
             </Grid>
-          </Container>
-        </Box>
+            <Grid item xs={12} md={8}>
+              <Typography variant="h5" gutterBottom> Hi! 😊 I'm Ethan </Typography>
+              <Typography variant="body1" color="text.secondary" paragraph>
+                I'm a final-year Mechanical Engineering student at Nanyang Technological University, Singapore. I specialise in Robotics 🤖 with a strong passion for software development. I recently led Team Mecatron's software division to victory at SAUVC 2025, so lookout for our next big thing 😉. Grit and hunger drives success, no pain no gain! 🦾
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Button variant="contained" onClick={() => handleCopy(contactInfo.email, 'Email copied!')}>
+                  Contact Me
+                </Button>
+                <Button variant="outlined" href={contactInfo.linkedin} target="_blank">
+                  LinkedIn
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
 
         {/* Experience Section */}
         <Container maxWidth="lg" className="section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <Typography variant="h2" gutterBottom className="gradient-text" sx={{ mb: 6 }}>
-              Experience
-            </Typography>
-            <Grid container spacing={4}>
-              {experience.map((exp, index) => (
-                <Grid item xs={12} md={6} key={index}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    style={{ height: '100%' }}
-                  >
-                    <Paper className="glass-card experience-card" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                      <Box
-                        component="img"
-                        src={exp.image}
-                        alt={exp.company}
-                        sx={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '16px', mb: 3 }}
-                      />
-                      <Box sx={{ px: 1 }}>
-                        <Typography variant="h4" gutterBottom>{exp.position}</Typography>
-                        <Typography variant="h6" color="primary.main" gutterBottom>{exp.company}</Typography>
-                        <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700, display: 'block', mb: 2 }}>
-                          {exp.period}
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary">
-                          {exp.description}
-                        </Typography>
-                      </Box>
-                    </Paper>
-                  </motion.div>
-                </Grid>
-              ))}
-            </Grid>
-          </motion.div>
+          <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>Work Experience</Typography>
+          <Grid container spacing={4}>
+            {experience.map((exp, index) => (
+              <Grid item xs={12} md={6} key={index}>
+                <Paper className="glass-card" sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <Box
+                    component="img"
+                    src={exp.image}
+                    alt={exp.company}
+                    sx={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: 2, mb: 2 }}
+                  />
+                  <Typography variant="h6" color="primary">{exp.position}</Typography>
+                  <Typography variant="subtitle1" color="text.secondary">{exp.company}</Typography>
+                  <Typography variant="overline" sx={{ display: 'block', mb: 1 }}>{exp.period}</Typography>
+                  <Typography variant="body2" color="text.secondary">{exp.description}</Typography>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
         </Container>
 
         {/* Education Section */}
         <Container maxWidth="lg" className="section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <Typography variant="h2" gutterBottom className="gradient-text" sx={{ mb: 6 }}>
-              Education
-            </Typography>
-            <Grid container spacing={4}>
-              {education.map((edu, index) => (
-                <Grid item xs={12} md={6} key={index}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    style={{ height: '100%' }}
-                  >
-                    <Paper className="glass-card experience-card" sx={{ height: '100%', p: 4 }}>
-                      <Typography variant="overline" color="primary.main" sx={{ fontWeight: 700 }}>
-                        {edu.period}
-                      </Typography>
-                      <Typography variant="h4" gutterBottom>{edu.degree}</Typography>
-                      <Typography variant="h6" color="text.secondary" gutterBottom>{edu.school}</Typography>
-                      <Typography variant="body1" color="text.secondary">
-                        {edu.description}
-                      </Typography>
-                    </Paper>
-                  </motion.div>
-                </Grid>
-              ))}
-            </Grid>
-          </motion.div>
+          <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>Education</Typography>
+          <Grid container spacing={4}>
+            {education.map((edu, index) => (
+              <Grid item xs={12} md={6} key={index}>
+                <Paper className="glass-card" sx={{ p: 3, height: '100%' }}>
+                  <Typography variant="h6" color="primary">{edu.degree}</Typography>
+                  <Typography variant="subtitle1" color="text.secondary">{edu.school}</Typography>
+                  <Typography variant="overline" sx={{ display: 'block', mb: 1 }}>{edu.period}</Typography>
+                  <Typography variant="body2">{edu.description}</Typography>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
         </Container>
 
         {/* Projects Section */}
-        <Box sx={{ bgcolor: 'rgba(255, 255, 255, 0.01)', borderY: '1px solid var(--glass-border)' }}>
-          <Container maxWidth="lg" className="section-padding">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <Typography variant="h2" gutterBottom className="gradient-text" sx={{ mb: 6 }}>
-                Featured Projects
-              </Typography>
-              <Grid container spacing={4}>
-                {projects.map((project, index) => (
-                  <Grid item xs={12} md={4} key={index}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      style={{ height: '100%' }}
-                    >
-                      <Paper className="glass-card project-card" sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                        <Box
-                          component="img"
-                          src={project.image}
-                          alt={project.title}
-                          sx={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px', mb: 3 }}
-                        />
-                        <Typography variant="h4" gutterBottom>{project.title}</Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 3, flexGrow: 1 }}>
-                          {project.description}
-                        </Typography>
-                        {project.link && (
-                          <Button variant="text" color="primary" href={project.link} target="_blank" endIcon={<FaArrowRight />}>
-                            Explore
-                          </Button>
-                        )}
-                      </Paper>
-                    </motion.div>
-                  </Grid>
-                ))}
+        <Container maxWidth="lg" className="section-padding">
+          <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>Projects</Typography>
+          <Grid container spacing={4}>
+            {projects.map((project, index) => (
+              <Grid item xs={12} md={4} key={index}>
+                <Paper className="glass-card" sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <Box
+                    component="img"
+                    src={project.image}
+                    alt={project.title}
+                    sx={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: 2, mb: 2 }}
+                  />
+                  <Typography variant="h6" gutterBottom>{project.title}</Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>{project.description}</Typography>
+                  {project.link && (
+                    <Button variant="text" color="primary" href={project.link} target="_blank" sx={{ mt: 2, alignSelf: 'flex-start' }}>
+                      Learn More
+                    </Button>
+                  )}
+                </Paper>
               </Grid>
-            </motion.div>
-          </Container>
-        </Box>
+            ))}
+          </Grid>
+        </Container>
 
         {/* Skills Section */}
         <Container maxWidth="lg" className="section-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <Typography variant="h2" gutterBottom className="gradient-text" sx={{ mb: 6 }}>
-              Skillset
-            </Typography>
-            <Grid container spacing={6}>
-              {Object.entries(skillGroups).map(([group, skills], groupIndex) => (
-                <Grid item xs={12} md={4} key={group}>
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
-                  >
-                    <Typography variant="h5" sx={{ mb: 3, color: 'text.primary' }}>{group}</Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
-                      {skills.map((skill) => (
-                        <Box key={skill.name} className="skill-pill">
-                          {React.createElement(skill.icon)}
-                          {skill.name}
-                        </Box>
-                      ))}
-                    </Box>
-                  </motion.div>
-                </Grid>
-              ))}
-            </Grid>
-          </motion.div>
+          <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>Skills</Typography>
+          <Grid container spacing={4}>
+            {Object.entries(skills).map(([category, items]) => (
+              <Grid item xs={12} key={category}>
+                <Paper className="glass-card" sx={{ p: 3 }}>
+                  <Typography variant="h6" color="primary" gutterBottom>{category}</Typography>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                    {items.map((skill, index) => (
+                      <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        {skill.icon && <skill.icon />}
+                        <Typography variant="body2">{typeof skill === 'string' ? skill : skill.name}</Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
         </Container>
 
         {/* Footer */}
-        <Box className="footer">
+        <Box sx={{ py: 6, textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', mt: 4 }}>
           <Container maxWidth="lg">
-            <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
-              Let's build something together.
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-              Open for interesting opportunities in Robotics and AI.
-            </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
-              <IconButton href={`mailto:${contactInfo.email}`} color="inherit"><FaEnvelope size={24} /></IconButton>
-              <IconButton href={contactInfo.linkedin} target="_blank" color="inherit"><FaLinkedin size={24} /></IconButton>
-              <IconButton href={contactInfo.github} target="_blank" color="inherit"><FaGithub size={24} /></IconButton>
-            </Box>
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 6 }}>
-              © {new Date().getFullYear()} Ethan Ong. Built with React & Passion.
+            <Typography variant="body2" color="text.secondary">
+              © {new Date().getFullYear()} Ethan Ong. Built with React.
             </Typography>
           </Container>
         </Box>
