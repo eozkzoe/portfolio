@@ -212,9 +212,9 @@ function App() {
 
         {/* Hero Section */}
         <Container maxWidth="lg" sx={{ py: 8 }}>
-          <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12} md={4}>
-              <Box sx={{ mb: { xs: 3, md: 0 } }}>
+          <Grid container spacing={4}>
+            <Grid item xs={12}>
+              <Box sx={{ maxWidth: '400px', mx: 'auto', mb: 4 }}>
                 <Paper
                   className="glass-card"
                   sx={{
@@ -241,18 +241,43 @@ function App() {
                 </Paper>
               </Box>
             </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="h5" gutterBottom> Hi! 😊 I'm Ethan </Typography>
-              <Typography variant="body1" color="text.secondary" paragraph>
-                I'm a final-year Mechanical Engineering student at Nanyang Technological University, Singapore. I specialise in Robotics 🤖 with a strong passion for software development. I recently led Team Mecatron's software division to victory at SAUVC 2025, so lookout for our next big thing 😉. Grit and hunger drives success, no pain no gain! 🦾
-              </Typography>
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                <Button variant="contained" onClick={() => handleCopy(contactInfo.email, 'Email copied!')}>
-                  Contact Me
-                </Button>
-                <Button variant="outlined" href={contactInfo.linkedin} target="_blank">
-                  LinkedIn
-                </Button>
+            <Grid item xs={12}>
+              <Box sx={{ textAlign: 'center', mb: 6 }}>
+                <Typography variant="h4" gutterBottom> Hi! 😊 I'm Ethan </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph sx={{ maxWidth: '800px', mx: 'auto' }}>
+                  I'm currently working as a Project Manager at Shopee overseeing AI Chatbot Projects for both Customer Service and Shop Growth. I studied Mechanical Engineering with a Specialisation in Robotics 🤖 at Nanyang Technological University, Singapore. I have a strong passion for software development, working in large research firms, startups, and competitions. Grit and hunger drives success, no pain no gain! 🦾
+                </Typography>
+                <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mb: 6 }}>
+                  <Button variant="contained" onClick={() => handleCopy(contactInfo.email, 'Email copied!')}>
+                    Contact Me
+                  </Button>
+                  <Button variant="outlined" href={contactInfo.linkedin} target="_blank">
+                    LinkedIn
+                  </Button>
+                </Box>
+
+                <Box sx={{ mt: 8 }}>
+                  <Typography variant="h5" gutterBottom sx={{ mb: 4, fontWeight: 700 }}>
+                    Check out my feature by NTU!
+                  </Typography>
+                  <Paper 
+                    className="glass-card" 
+                    sx={{ 
+                      width: '100%', 
+                      height: { xs: '400px', md: '600px' }, 
+                      overflow: 'hidden',
+                      borderRadius: 2
+                    }}
+                  >
+                    <iframe
+                      src={`${process.env.PUBLIC_URL}/ethan_ong_mae_feature.pdf#view=FitH`}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 'none' }}
+                      title="NTU Feature"
+                    />
+                  </Paper>
+                </Box>
               </Box>
             </Grid>
           </Grid>
