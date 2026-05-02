@@ -1,20 +1,20 @@
 import React from 'react';
 import { 
   Container, Box, Typography, Grid, IconButton, ThemeProvider, 
-  createTheme, CssBaseline, Paper, Tooltip, Snackbar, Button,
-  useScrollTrigger, Slide, Fade
+  createTheme, CssBaseline, Paper, Snackbar, Button,
+  useScrollTrigger, Slide
 } from '@mui/material';
 import { 
-  FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, 
-  FaDatabase, FaReact, FaGitAlt, FaDocker, FaFileDownload, 
-  FaMicrosoft, FaLinux, FaUnity, FaArrowRight 
+  FaLinkedin, FaEnvelope, FaGithub, FaJs, FaPython, 
+  FaDatabase, FaDocker, FaFileDownload, 
+  FaLinux, FaUnity, FaArrowRight 
 } from 'react-icons/fa';
 import { 
-  SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, 
+  SiCplusplus, SiWebgl, SiThreedotjs, SiRos, 
   SiAdobephotoshop, SiDavinciresolve, SiArduino 
 } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import './App.css';
 import './index.css';
 
