@@ -1,119 +1,88 @@
 import React from 'react';
-import { Container, Box, Typography, Grid, IconButton, ThemeProvider, createTheme, CssBaseline, Paper, Tooltip } from '@mui/material';
-import { FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, FaDatabase, FaReact, FaGitAlt, FaDocker, FaFileDownload, FaMicrosoft, FaLinux, FaUnity } from 'react-icons/fa';
-import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDavinciresolve, SiArduino } from 'react-icons/si';
+import { 
+  Container, Box, Typography, Grid, IconButton, ThemeProvider, 
+  createTheme, CssBaseline, Paper, Tooltip, Snackbar, Button,
+  useScrollTrigger, Slide, Fade
+} from '@mui/material';
+import { 
+  FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, 
+  FaDatabase, FaReact, FaGitAlt, FaDocker, FaFileDownload, 
+  FaMicrosoft, FaLinux, FaUnity, FaArrowRight 
+} from 'react-icons/fa';
+import { 
+  SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, 
+  SiAdobephotoshop, SiDavinciresolve, SiArduino 
+} from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
-import { Snackbar } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
-import './styles/Typography.css';
+import './index.css';
 
-
-
-
-
-
-
-const darkTheme = createTheme({
+const theme = createTheme({
   typography: {
-    fontFamily: '"JetBrains Mono", monospace',
-    h4: {
-      fontWeight: 700,
-    },
-    h6: {
-      fontWeight: 700,
-    },
-    sectionTitle: {
-      fontSize: '2.0rem',
-      fontWeight: 700,
-      marginBottom: '3.0rem',
-      color: '#ffffff'  // Fixed the color value (was '#fffff')
-    },
+    fontFamily: '"Outfit", sans-serif',
+    h1: { fontWeight: 700, fontSize: '4.5rem', letterSpacing: '-0.02em' },
+    h2: { fontWeight: 700, fontSize: '3rem', letterSpacing: '-0.01em' },
+    h3: { fontWeight: 600, fontSize: '2.25rem' },
+    h4: { fontWeight: 600, fontSize: '1.75rem' },
+    h5: { fontWeight: 600, fontSize: '1.25rem' },
+    h6: { fontWeight: 600, fontSize: '1.1rem' },
+    body1: { fontSize: '1.1rem', lineHeight: 1.7 },
   },
   palette: {
     mode: 'dark',
-    primary: {
-      main: '#90caf9',
-    },
+    primary: { main: '#6366f1' },
+    secondary: { main: '#a855f7' },
     background: {
-      default: '#121212',
-      paper: '#1e1e1e',
+      default: '#0a0a0c',
+      paper: 'rgba(255, 255, 255, 0.03)',
     },
     text: {
-      primary: '#ffffff',
-      secondary: '#b0b0b0',
+      primary: '#f8fafc',
+      secondary: '#94a3b8',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '12px',
+          textTransform: 'none',
+          fontWeight: 600,
+          padding: '10px 24px',
+        },
+      },
     },
   },
 });
 
+function HideOnScroll(props) {
+  const { children } = props;
+  const trigger = useScrollTrigger();
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
 function App() {
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+
   const contactInfo = {
     email: 'ethanong27@gmail.com',
     phone: '+6597913739',
     linkedin: 'https://linkedin.com/in/eozk',
     github: 'https://github.com/eozkzoe',
-    resume: process.env.PUBLIC_URL + '/resume.pdf'  // Updated resume path
+    resume: process.env.PUBLIC_URL + '/resume.pdf'
   };
-  // Add state for snackbar
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState('');
 
-  // Add clipboard function
   const handleCopy = (text, message) => {
     navigator.clipboard.writeText(text);
     setSnackbarMessage(message);
     setSnackbarOpen(true);
-  };
-
-  const projects = [
-    {
-      title: 'Mecatron',
-      description: 'Winner of <a href="https://sauvc.org/#teams" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>SAUVC 2025</a>! Bested 100+ teams from 20 countries. Software lead at NTU\'s Student-led Marine Robotics team. Leading ~10 SWEs in developing Behaviour Trees, localisation, object detection etc.',
-      image: process.env.PUBLIC_URL + '/mecatron_sauvc.jpg',
-      link: 'https://mecatron.sg'
-    },
-    {
-      title: 'Dyson-NTU Product Development Challenge',
-      description: 'Perform market analysis and system design to fabricate an entire product from scratch!',
-      image: process.env.PUBLIC_URL + '/dyson_submission.png'
-    },
-    {
-      title: 'NTUSU MODE',
-      description: 'Events Officer at NTU Student Union\'s Ministerial Open Discussions and Events Committee, fostering political engagement for Singapore\'s youth',
-      image: process.env.PUBLIC_URL + '/NTUSU_MODE.jpeg'
-    },
-    {
-      title: 'ESPRESSIF Systems U Amaze Venture',
-      description: '1st Runner Up! Created a unique unmanned vehicle which completes an obstacle-laden maze in the shortest time',
-      image: process.env.PUBLIC_URL + '/espressif.jpeg'
-    }
-  ];
-
-  const skills = {
-    'Programming': [
-      { name: 'Python', icon: FaPython },
-      { name: 'C++', icon: SiCplusplus },
-      { name: 'C', icon: SiC },
-      { name: 'JavaScript', icon: FaJs },
-      { name: 'SQL', icon: FaDatabase },
-      { name: 'GLSL', icon: SiWebgl },
-    ],
-    'Tools': [
-      { name: 'ROS', icon: SiRos },
-      { name: 'Git', icon: FaGitAlt },
-      { name: 'Docker', icon: FaDocker },
-      { name: 'Linux', icon: FaLinux },
-      { name: 'Unity', icon: FaUnity },
-      { name: 'Arduino', icon: SiArduino },
-      { name: 'React', icon: FaReact },
-      { name: 'Three.js', icon: SiThreedotjs },
-      { name: 'Fusion360', icon: TbView360Number },
-      { name: 'Microsoft Office', icon: FaMicrosoft }
-    ],
-    'Creative': [
-      { name: 'Photoshop', icon: SiAdobephotoshop },
-      { name: 'DaVinci Resolve', icon: SiDavinciresolve },
-    ],
-    'Languages': ['English', 'Mandarin']
   };
 
   const experience = [
@@ -121,43 +90,41 @@ function App() {
       company: 'Shopee',
       position: 'Project Manager',
       period: 'Jul. 2025 – Present',
-      description: 'Managing AI Chatbot Projects across Backend, Data Science, Ops, and Product teams in China, Indonesia, and Singapore to improve customer satisfaction, deflection rates, reduce hallucinations, and generate shop sales. Coordinating PRDs, technical discussions, cross-team timelines, and conducting weekly/daily standups to solve bad cases during live testing, forecast technical and resource blockers, and ensure SLA and SOP adherence. Leveraged Jira APIs, SQL, Python scripts, and Hive Tables to monitor feature and tech project release and request frequency health and manpower efficiency across all AI product-lines in Shopee. Overseeing transitions from rule-based to skill-based agents, issue to intent KBs, and auto-QA/tagging/training. Launched a project management multi-agent bot and knowledge base to guide process and team onboarding, automate administrative tasks, and provide an interface to sync data across multiple project trackers & platforms',
+      description: 'Managing AI Chatbot Projects across Backend, Data Science, Ops, and Product teams. Overseeing transitions from rule-based to skill-based agents and launching a project management multi-agent bot.',
       image: process.env.PUBLIC_URL + '/haltere.png'
     },
     {
-      company: 'Hyundai Motor Group Innovation Center Singapore',
+      company: 'Hyundai Motor Group',
       position: 'Student Researcher',
       period: 'Aug. 2024 – May 2025',
-      description: 'Improved digital reconstruction of car parts using 3D Gaussian Splatting for vision-based motion-planning. Optimised image datasets, replanned robotic arm trajectories, and performed studies on point cloud and computer vision implementations.',
+      description: 'Improved digital reconstruction of car parts using 3D Gaussian Splatting for vision-based motion-planning.',
       image: process.env.PUBLIC_URL + '/hmgics.jpg'
     },
     {
-      company: 'Panasonic R&D Center Singapore',
+      company: 'Panasonic R&D',
       position: 'Research Intern',
       period: 'Jan 2025 - Present',
-      description: 'I conduct cutting edge research on 3D reconstruction techniques such as SLAM and Gaussian Splatting. My main tasks revolve around WebGL development in Three.JS and GLSL to improve web-based splat renderers. I also survey, test, and implement experimental software and research papers',
+      description: 'Researching 3D reconstruction techniques (SLAM, Gaussian Splatting). Developing in Three.js and GLSL.',
       image: process.env.PUBLIC_URL + '/3d_recon.jpeg'
     },
+  ];
+
+  const projects = [
     {
-      company: 'Fling Asia',
-      position: 'Software Engineer',
-      period: 'Dec 2023 - Apr 2024',
-      description: 'Developed commercial bulk QR labelling desktop software to support industry standard Zebra printers, and led marketing and product demonstrations at DHL and Ceva. Debugged crucial video-processing, computer vision, and core stock check report generation software',
-      image: process.env.PUBLIC_URL + '/flabel.png'
+      title: 'Mecatron',
+      description: 'Winner of SAUVC 2025! Led software development for an autonomous underwater vehicle.',
+      image: process.env.PUBLIC_URL + '/mecatron_sauvc.jpg',
+      link: 'https://mecatron.sg'
     },
     {
-      company: 'Fling Asia',
-      position: 'Engineering Intern',
-      period: 'Dec 2023 - Apr 2024',
-      description: 'Led the design, fabrication, and feasibility testing of hardware additions such as drone lighting and quadcopter wing attachments. Contributed to key database management libraries and consolidated internal processes to an edge application',
-      image: process.env.PUBLIC_URL + '/aerobeam.png'
+      title: 'Dyson-NTU Challenge',
+      description: 'System design and fabrication of a full consumer product from scratch.',
+      image: process.env.PUBLIC_URL + '/dyson_submission.png'
     },
     {
-      company: 'Republic of Singapore Air Force',
-      position: 'WSO (FTR) Trainee',
-      period: 'Oct 2018 - July 2021',
-      description: 'Managed ~10 separate flying courses in flight, visa, health and safety currencies. I planned large scale activities with 200-300 participants, and forecasted manpower capacities for overseas detachments. I supported flight scheduling and critical life support systems',
-      image: process.env.PUBLIC_URL + '/wso_ftr.jpg'
+      title: 'Espressif U Amaze',
+      description: '1st Runner Up! Created an unmanned vehicle for maze navigation.',
+      image: process.env.PUBLIC_URL + '/espressif.jpeg'
     }
   ];
 
@@ -176,256 +143,305 @@ function App() {
     }
   ];
 
+  const skillGroups = {
+    'Languages & Dev': [
+      { name: 'Python', icon: FaPython },
+      { name: 'C++', icon: SiCplusplus },
+      { name: 'JavaScript', icon: FaJs },
+      { name: 'SQL', icon: FaDatabase },
+      { name: 'GLSL', icon: SiWebgl },
+    ],
+    'Robotics & Tools': [
+      { name: 'ROS', icon: SiRos },
+      { name: 'Three.js', icon: SiThreedotjs },
+      { name: 'Docker', icon: FaDocker },
+      { name: 'Linux', icon: FaLinux },
+      { name: 'Unity', icon: FaUnity },
+      { name: 'Arduino', icon: SiArduino },
+    ],
+    'Creative & Others': [
+      { name: 'Photoshop', icon: SiAdobephotoshop },
+      { name: 'DaVinci Resolve', icon: SiDavinciresolve },
+      { name: 'Fusion360', icon: TbView360Number },
+    ]
+  };
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box className="App">
-        {/* Contact Section */}
-        <Box className="contact-section" sx={{ bgcolor: 'background.paper', color: 'text.primary', py: 2, mb: 4 }}>
-          <Container>
-            <Grid container spacing={2} alignItems="center" justifyContent="space-between">
-            <Grid item>
-                <Tooltip title="Download My Resume">
-                <IconButton 
+        
+        {/* Navigation */}
+        <HideOnScroll>
+          <Box className="sticky-header">
+            <Container maxWidth="lg">
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 2 }}>
+                <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
+                  Ethan Ong
+                </Typography>
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                  <IconButton href={contactInfo.github} target="_blank" color="inherit"><FaGithub size={20} /></IconButton>
+                  <IconButton href={contactInfo.linkedin} target="_blank" color="inherit"><FaLinkedin size={20} /></IconButton>
+                  <Button 
+                    variant="contained" 
+                    startIcon={<FaFileDownload />}
                     href={contactInfo.resume}
-                    download="Ong_Zheng_Kai_Ethan_Resume.pdf"
-                    color="inherit" 
-                    sx={{
-                        gap: 1, 
-                        display: 'flex', 
-                        alignItems: 'center',
-                        '&:hover': {
-                            color: 'primary.main',
-                            transform: 'scale(1.05)',
-                        },
-                        transition: 'all 0.2s'
-                    }}
-                >
-                    <Typography variant="button" sx={{display: {xs: 'none', sm: 'block'}}}>
-                        Resume
-                    </Typography>
-                    <FaFileDownload size={15}/>
-                </IconButton>
-                </Tooltip>
-            </Grid>
-            <Grid item>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item>
-                    <IconButton href={`mailto:${contactInfo.email}`} color="inherit" onClick={(e) => {
-                        e.preventDefault();
-                        handleCopy(contactInfo.email, 'Email copied to clipboard!');
-                    }} sx={{ fontSize: '1.2rem' }}>
-                        <FaEnvelope size={20} />
-                    </IconButton>
-                </Grid>
-                <Grid item>
-                    <IconButton href={`tel:${contactInfo.phone}`} color="inherit" onClick={(e) => {
-                        e.preventDefault();
-                        handleCopy(contactInfo.phone, 'Phone number copied to clipboard!');
-                    }} sx = {{ fontSize: '1.2rem' }}>
-                        <FaPhone size={20} />
-                    </IconButton>
-                </Grid>
-                <Grid item>
-                    <IconButton href={contactInfo.linkedin} target="_blank" color="inherit">
-                        <FaLinkedin />
-                    </IconButton>
-                </Grid>
-                <Grid item>
-                    <IconButton href={contactInfo.github} target="_blank" color="inherit">
-                        <FaGithub />
-                    </IconButton>
-                </Grid>
-            </Grid>
-          </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      <Container maxWidth="xl">
-        {/* Split Layout Section */}
-        <Grid container spacing={4} sx={{ mb: 6, alignItems: 'center' }}>
-          {/* Left Panel - Profile */}
-          <Grid item xs={12} md={3}>
-            <Box sx={{ mb: { xs: 3, md: 0 } }}>
-              <Paper
-                sx={{
-                  width: '100%',
-                  paddingTop: '100%',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  borderRadius: 4,
-                  boxShadow: 3
-                }}
-              >
-                <Box
-                  component="img"
-                  src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
-                  alt="Profile"
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
-              </Paper>
-            </Box>
-          </Grid>
-          
-          {/* Right Panel - Intro */}
-          <Grid item xs={12} md={9}>
-            <Typography variant="h5" gutterBottom> Hi! 😊 I'm Ethan </Typography>
-            <Typography variant="body1" color="text.secondary" paragraph>
-              I'm a final-year Mechanical Engineering student at Nanyang Technological University, Singapore. I specialise in Robotics 🤖 with a strong passion for software development. I recently led Team Mecatron's software division to victory at SAUVC 2025, so lookout for our next big thing 😉. Grit and hunger drives success, no pain no gain! 🦾
-            </Typography>
-            
-            {/* Add Snackbar at the end of the return statement */}
-            <Snackbar
-              open={snackbarOpen}
-              autoHideDuration={2000}
-              onClose={() => setSnackbarOpen(false)}
-              message={snackbarMessage}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            />
-          </Grid>
-        </Grid>
-
-        {/* Experience Section */}
-        <Box sx={{ mb: 6 }}>
-          <Typography variant="sectionTitle" sx={{ fontSize: '2.5rem' }}>Work Experience</Typography>
-          {experience.map((exp, index) => (
-            <Box key={index} sx={{ mb: 4 }}>
-              <Grid container spacing={3} alignItems="center">
-                <Grid item xs={12} md={6}>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: 200,
-                      borderRadius: 2,
-                      overflow: 'hidden',
-                      boxShadow: 3
-                    }}
+                    download
                   >
-                    <img
-                      src={exp.image}
-                      alt={exp.company}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
+                    Resume
+                  </Button>
+                </Box>
+              </Box>
+            </Container>
+          </Box>
+        </HideOnScroll>
+
+        {/* Hero Section */}
+        <Box className="hero-section">
+          <div className="hero-blob" style={{ top: '10%', left: '10%' }}></div>
+          <div className="hero-blob" style={{ bottom: '20%', right: '10%', background: 'radial-gradient(circle, var(--secondary) 0%, transparent 70%)' }}></div>
+          
+          <Container maxWidth="lg">
+            <Grid container spacing={6} alignItems="center">
+              <Grid item xs={12} md={7}>
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                  <Typography variant="h1" gutterBottom>
+                    Crafting the future of <span className="gradient-text">Robotics</span>
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: '600px' }}>
+                    Final-year Mechanical Engineering student at NTU specializing in Robotics & Software. 
+                    Passionate about 3D reconstruction, computer vision, and building autonomous systems.
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 2 }}>
+                    <Button variant="contained" size="large" onClick={() => handleCopy(contactInfo.email, 'Email copied!')}>
+                      Contact Me
+                    </Button>
+                    <Button variant="outlined" size="large" endIcon={<FaArrowRight />} onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}>
+                      View Projects
+                    </Button>
+                  </Box>
+                </motion.div>
+              </Grid>
+              <Grid item xs={12} md={5}>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  <Box sx={{ position: 'relative' }}>
+                    <Box
+                      component="img"
+                      src={process.env.PUBLIC_URL + '/website_photo.jpeg'}
+                      alt="Ethan Ong"
+                      className="rounded-image"
+                      sx={{ width: '100%', maxWidth: '400px', display: 'block', margin: 'auto' }}
                     />
                   </Box>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Box sx={{ pl: { md: 2 } }}>
-                    <Typography variant="h6" color="primary">{exp.position}</Typography>
-                    <Typography variant="subtitle1" color="secondary">{exp.company}</Typography>
-                    <Typography variant="subtitle2" color="text.secondary">{exp.period}</Typography>
-                    <Typography variant="body2">{exp.description}</Typography>
-                  </Box>
-                </Grid>
+                </motion.div>
               </Grid>
-            </Box>
-          ))}
+            </Grid>
+          </Container>
         </Box>
 
-        {/* Projects Section */}
-        <Box sx={{ mb: 6 }}>
-          <Typography variant="sectionTitle" sx={{ fontSize: '2.5rem' }}>Projects</Typography>
-          <Grid container spacing={2}>
-            {projects.map((project, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <div className="project-item">
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: 250,
-                      mb: 2,
-                      overflow: 'hidden',
-                      borderRadius: 2
-                    }}
+        {/* Experience Section */}
+        <Container maxWidth="lg" className="section-padding">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <Typography variant="h2" gutterBottom className="gradient-text" sx={{ mb: 6 }}>
+              Experience
+            </Typography>
+            <Grid container spacing={4}>
+              {experience.map((exp, index) => (
+                <Grid item xs={12} md={6} key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    style={{ height: '100%' }}
                   >
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
-                      style={{ 
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }} 
-                    />
-                  </Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700 }}>{project.title}</Typography>
-                  <Typography 
-                    variant="body2" 
-                    color="text.secondary" 
-                    dangerouslySetInnerHTML={{ __html: project.description }}
-                  />
-                  </a>
-                </div>
+                    <Paper className="glass-card experience-card" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                      <Box
+                        component="img"
+                        src={exp.image}
+                        alt={exp.company}
+                        sx={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '16px', mb: 3 }}
+                      />
+                      <Box sx={{ px: 1 }}>
+                        <Typography variant="h4" gutterBottom>{exp.position}</Typography>
+                        <Typography variant="h6" color="primary.main" gutterBottom>{exp.company}</Typography>
+                        <Typography variant="overline" color="text.secondary" sx={{ fontWeight: 700, display: 'block', mb: 2 }}>
+                          {exp.period}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                          {exp.description}
+                        </Typography>
+                      </Box>
+                    </Paper>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          </motion.div>
+        </Container>
+
+        {/* Education Section */}
+        <Container maxWidth="lg" className="section-padding">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <Typography variant="h2" gutterBottom className="gradient-text" sx={{ mb: 6 }}>
+              Education
+            </Typography>
+            <Grid container spacing={4}>
+              {education.map((edu, index) => (
+                <Grid item xs={12} md={6} key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    style={{ height: '100%' }}
+                  >
+                    <Paper className="glass-card experience-card" sx={{ height: '100%', p: 4 }}>
+                      <Typography variant="overline" color="primary.main" sx={{ fontWeight: 700 }}>
+                        {edu.period}
+                      </Typography>
+                      <Typography variant="h4" gutterBottom>{edu.degree}</Typography>
+                      <Typography variant="h6" color="text.secondary" gutterBottom>{edu.school}</Typography>
+                      <Typography variant="body1" color="text.secondary">
+                        {edu.description}
+                      </Typography>
+                    </Paper>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          </motion.div>
+        </Container>
+
+        {/* Projects Section */}
+        <Box sx={{ bgcolor: 'rgba(255, 255, 255, 0.01)', borderY: '1px solid var(--glass-border)' }}>
+          <Container maxWidth="lg" className="section-padding">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Typography variant="h2" gutterBottom className="gradient-text" sx={{ mb: 6 }}>
+                Featured Projects
+              </Typography>
+              <Grid container spacing={4}>
+                {projects.map((project, index) => (
+                  <Grid item xs={12} md={4} key={index}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      style={{ height: '100%' }}
+                    >
+                      <Paper className="glass-card project-card" sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                        <Box
+                          component="img"
+                          src={project.image}
+                          alt={project.title}
+                          sx={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px', mb: 3 }}
+                        />
+                        <Typography variant="h4" gutterBottom>{project.title}</Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 3, flexGrow: 1 }}>
+                          {project.description}
+                        </Typography>
+                        {project.link && (
+                          <Button variant="text" color="primary" href={project.link} target="_blank" endIcon={<FaArrowRight />}>
+                            Explore
+                          </Button>
+                        )}
+                      </Paper>
+                    </motion.div>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
+            </motion.div>
+          </Container>
         </Box>
 
         {/* Skills Section */}
-        <Box sx={{ mb: 5 }}>
-          <Typography variant="sectionTitle" sx={{ fontSize: '2.5rem' }}>Skills</Typography>
-          {Object.entries(skills).map(([category, items]) => (
-            <div key={category} className="skill-category">
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                <Typography variant="h6" sx={{ fontSize: '1.1rem', minWidth: '150px' }}>{category}</Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                  {Array.isArray(items) ? (
-                    items.map((skill, index) => (
-                      <React.Fragment key={index}>
-                        {typeof skill === 'string' ? (
-                          <span className="skill-item" style={{ marginTop: '2px', marginBottom: '2px' }}>{skill}</span>
-                        ) : (
-                          <Tooltip title={skill.name} placement="top">
-                            <IconButton 
-                              sx={{ 
-                                color: 'text.secondary',
-                                '&:hover': {
-                                  color: 'text.primary',
-                                  transform: 'scale(1.1)',
-                                },
-                                transition: 'all 0.2s'
-                              }}
-                            >
-                              {React.createElement(skill.icon, { size: 24 })}
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                      </React.Fragment>
-                    ))
-                  ) : null}
-                </Box>
-              </Box>
-            </div>
-          ))}
+        <Container maxWidth="lg" className="section-padding">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <Typography variant="h2" gutterBottom className="gradient-text" sx={{ mb: 6 }}>
+              Skillset
+            </Typography>
+            <Grid container spacing={6}>
+              {Object.entries(skillGroups).map(([group, skills], groupIndex) => (
+                <Grid item xs={12} md={4} key={group}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
+                  >
+                    <Typography variant="h5" sx={{ mb: 3, color: 'text.primary' }}>{group}</Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
+                      {skills.map((skill) => (
+                        <Box key={skill.name} className="skill-pill">
+                          {React.createElement(skill.icon)}
+                          {skill.name}
+                        </Box>
+                      ))}
+                    </Box>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          </motion.div>
+        </Container>
+
+        {/* Footer */}
+        <Box className="footer">
+          <Container maxWidth="lg">
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
+              Let's build something together.
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+              Open for interesting opportunities in Robotics and AI.
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+              <IconButton href={`mailto:${contactInfo.email}`} color="inherit"><FaEnvelope size={24} /></IconButton>
+              <IconButton href={contactInfo.linkedin} target="_blank" color="inherit"><FaLinkedin size={24} /></IconButton>
+              <IconButton href={contactInfo.github} target="_blank" color="inherit"><FaGithub size={24} /></IconButton>
+            </Box>
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 6 }}>
+              © {new Date().getFullYear()} Ethan Ong. Built with React & Passion.
+            </Typography>
+          </Container>
         </Box>
 
-
-        {/* Education Section */}
-        <Box sx={{ mb: 6 }}>
-          <Typography variant="sectionTitle" sx={{ fontSize: '2.5rem' }}>Education</Typography>
-          {education.map((edu, index) => (
-            <div key={index} className="education-item">
-              <Typography variant="h6" color="primary">{edu.degree}</Typography>
-              <Typography variant="subtitle1" color="secondary">{edu.school}</Typography>
-              <Typography variant="subtitle2" color="text.secondary">{edu.period}</Typography>
-              <Typography variant="body1">{edu.description}</Typography>
-            </div>
-          ))}
-        </Box>
-      </Container>
-    </Box>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={2000}
+          onClose={() => setSnackbarOpen(false)}
+          message={snackbarMessage}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        />
+      </Box>
     </ThemeProvider>
   );
 }
