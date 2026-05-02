@@ -4,12 +4,11 @@ import { FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, FaDatabase, 
 import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDavinciresolve, SiArduino } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
 import { Snackbar } from '@mui/material';
-import { Environment, OrbitControls, useGLTF } from '@react-three/drei';
+import { Environment, OrbitControls, useGLTF, Splat } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import './App.css';
 import './styles/Typography.css';
-import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
 
 function isWebGLAvailable() {
   try {
@@ -40,99 +39,32 @@ function GlbModel({ url, position = [0, 0, 0], scale = [1, 1, 1] }) {
 }
 
 
-function AdvancedSplat({ url, position = [0, 0, 0], scale = [1, 1, 1], alphaTest = 0.1 }) {
-  const viewer = React.useMemo(() => {
-    return new GaussianSplats3D.DropInViewer({
-      'gpuAcceleratedSort': true,
-      'splatAlphaTest': alphaTest,
-      'renderMode': GaussianSplats3D.RenderMode.All
-    });
-  }, [alphaTest]);
-
-  React.useEffect(() => {
-    if (!url) return;
-    
-    // Clear previous scenes if any
-    viewer.addSplatScene(url, {
-      'position': position,
-      'rotation': [0, 0, 0],
-      'scale': scale,
-    });
-
-    return () => {
-      // Cleanup is handled by viewer disposal if needed, 
-      // but DropInViewer is an Object3D that can be removed.
-    };
-  }, [viewer, url, position, scale]);
-
-  return <primitive object={viewer} />;
-}
-
-function ModelViewer({ modelUrl, format, position, scale }) {
+function ModelViewer() {
+  const base = process.env.PUBLIC_URL || '';
   return (
     <Suspense fallback={null}>
-      {format === 'splat' || format === 'ply' ? (
-        <AdvancedSplat 
-            url={modelUrl} 
-            position={position} 
-            scale={scale} 
-            alphaTest={0.02} // Low threshold to keep detail but remove noise
-        />
-      ) : (
-        <GlbModel url={modelUrl} position={position} scale={scale} />
-      )}
+      {/* Primary: Gaussian Splat (The high-tech version) */}
+      <Splat 
+        src={base + '/maltese.splat'} 
+        position={[0, 0, 0]} 
+        scale={1} 
+        alphaTest={0.1}
+      />
+      {/* Secondary fallback: GLB mesh (Most compatible) */}
+      {/* We can overlay them or just pick one. For now, let's stick to Splat as it's the highlight. */}
     </Suspense>
   );
 }
 
 function Viewer3DWithFormat() {
-  const base = process.env.PUBLIC_URL || '';
-  const [state, setState] = React.useState({ ready: false, format: 'ply', url: base + '/maltese.ply' });
-  React.useEffect(() => {
-    const splatUrl = base + '/maltese.splat';
-    const glbUrl = base + '/maltese.glb';
-
-    fetch(splatUrl, { method: 'HEAD' })
-      .then((r) => {
-        if (r.ok) {
-          setState({ ready: true, format: 'splat', url: splatUrl });
-        } else {
-          return fetch(glbUrl, { method: 'HEAD' })
-            .then((r2) => setState({ ready: true, format: r2.ok ? 'glb' : 'ply', url: r2.ok ? glbUrl : base + '/maltese.ply' }));
-        }
-      })
-      .catch(() => {
-        fetch(glbUrl, { method: 'HEAD' })
-          .then((r2) => setState({ ready: true, format: r2.ok ? 'glb' : 'ply', url: r2.ok ? glbUrl : base + '/maltese.ply' }))
-          .catch(() => setState({ ready: true, format: 'ply', url: base + '/maltese.ply' }));
-      });
-  }, [base]);
-  if (!state.ready) {
-    return (
-      <Box sx={{ width: '100%', height: '100%', minHeight: 360, bgcolor: '#1a1a1a', borderRadius: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography variant="body2" color="text.secondary">Loading 3D…</Typography>
-      </Box>
-    );
-  }
   return (
     <Canvas
-      camera={{ position: [0, 1, 3], fov: 45, near: 0.1, far: 1000 }}
-      gl={{ 
-        antialias: false, 
-        alpha: true,
-        preserveDrawingBuffer: true,
-      }}
-      onCreated={({ gl }) => {
-        gl.setClearColor('#1a1a1a');
-      }}
+      camera={{ position: [0, 1, 5], fov: 45 }}
+      gl={{ antialias: true }}
     >
-      <ModelViewer
-        modelUrl={state.url}
-        format={state.format}
-        position={[0, 0, 0]}
-        scale={[1, 1, 1]}
-      />
-      <OrbitControls enableDamping dampingFactor={0.05} makeDefault />
+      <color attach="background" args={['#1a1a1a']} />
+      <ModelViewer />
+      <OrbitControls enableDamping dampingFactor={0.05} autoRotate autoRotateSpeed={0.5} />
       <Environment preset="sunset" />
     </Canvas>
   );

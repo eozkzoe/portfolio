@@ -6,7 +6,6 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mkkellogg/gaussian-splats-3d": "^0.4.7",
     "@mui/material": "^5.14.18",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.16.1",
