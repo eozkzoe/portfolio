@@ -4,9 +4,6 @@ import { FaLinkedin, FaEnvelope, FaPhone, FaGithub, FaJs, FaPython, FaDatabase, 
 import { SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, SiAdobephotoshop, SiDavinciresolve, SiArduino } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
 import { Snackbar } from '@mui/material';
-import { Environment, OrbitControls, Splat } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
 import './App.css';
 import './styles/Typography.css';
 
@@ -14,36 +11,7 @@ import './styles/Typography.css';
 
 
 
-function ModelViewer() {
-  const base = process.env.PUBLIC_URL || '';
-  return (
-    <Suspense fallback={null}>
-      {/* Primary: Gaussian Splat (The high-tech version) */}
-      <Splat 
-        src={base + '/maltese.splat'} 
-        position={[0, 0, 0]} 
-        scale={1} 
-        alphaTest={0.1}
-      />
-      {/* Secondary fallback: GLB mesh (Most compatible) */}
-      {/* We can overlay them or just pick one. For now, let's stick to Splat as it's the highlight. */}
-    </Suspense>
-  );
-}
 
-function Viewer3DWithFormat() {
-  return (
-    <Canvas
-      camera={{ position: [0, 1, 5], fov: 45 }}
-      gl={{ antialias: true }}
-    >
-      <color attach="background" args={['#1a1a1a']} />
-      <ModelViewer />
-      <OrbitControls enableDamping dampingFactor={0.05} autoRotate autoRotateSpeed={0.5} />
-      <Environment preset="sunset" />
-    </Canvas>
-  );
-}
 
 const darkTheme = createTheme({
   typography: {
@@ -104,11 +72,6 @@ function App() {
       link: 'https://mecatron.sg'
     },
     {
-      title: 'HMGICS Industry-FYP',
-      description: '3D Gaussian Splatting techniques in reconstructing car components from sparse images, performing mesh extraction and pose estimation for automotive assembly',
-      image: process.env.PUBLIC_URL + '/hmgics.jpg'
-    },
-    {
       title: 'Dyson-NTU Product Development Challenge',
       description: 'Perform market analysis and system design to fabricate an entire product from scratch!',
       image: process.env.PUBLIC_URL + '/dyson_submission.png'
@@ -160,6 +123,13 @@ function App() {
       period: 'Jul. 2025 – Present',
       description: 'Managing AI Chatbot Projects across Backend, Data Science, Ops, and Product teams in China, Indonesia, and Singapore to improve customer satisfaction, deflection rates, reduce hallucinations, and generate shop sales. Coordinating PRDs, technical discussions, cross-team timelines, and conducting weekly/daily standups to solve bad cases during live testing, forecast technical and resource blockers, and ensure SLA and SOP adherence. Leveraged Jira APIs, SQL, Python scripts, and Hive Tables to monitor feature and tech project release and request frequency health and manpower efficiency across all AI product-lines in Shopee. Overseeing transitions from rule-based to skill-based agents, issue to intent KBs, and auto-QA/tagging/training. Launched a project management multi-agent bot and knowledge base to guide process and team onboarding, automate administrative tasks, and provide an interface to sync data across multiple project trackers & platforms',
       image: process.env.PUBLIC_URL + '/haltere.png'
+    },
+    {
+      company: 'Hyundai Motor Group Innovation Center Singapore',
+      position: 'Student Researcher',
+      period: 'Aug. 2024 – May 2025',
+      description: 'Improved digital reconstruction of car parts using 3D Gaussian Splatting for vision-based motion-planning. Optimised image datasets, replanned robotic arm trajectories, and performed studies on point cloud and computer vision implementations.',
+      image: process.env.PUBLIC_URL + '/hmgics.jpg'
     },
     {
       company: 'Panasonic R&D Center Singapore',
@@ -274,10 +244,10 @@ function App() {
 
       <Container maxWidth="xl">
         {/* Split Layout Section */}
-        <Grid container spacing={4} sx={{ mb: 6 }}>
+        <Grid container spacing={4} sx={{ mb: 6, alignItems: 'center' }}>
           {/* Left Panel - Profile */}
-          <Grid item xs={12} md={4}>
-            <Box sx={{ mb: 3 }}>
+          <Grid item xs={12} md={3}>
+            <Box sx={{ mb: { xs: 3, md: 0 } }}>
               <Paper
                 sx={{
                   width: '100%',
@@ -303,35 +273,15 @@ function App() {
                 />
               </Paper>
             </Box>
+          </Grid>
+          
+          {/* Right Panel - Intro */}
+          <Grid item xs={12} md={9}>
             <Typography variant="h5" gutterBottom> Hi! 😊 I'm Ethan </Typography>
             <Typography variant="body1" color="text.secondary" paragraph>
               I'm a final-year Mechanical Engineering student at Nanyang Technological University, Singapore. I specialise in Robotics 🤖 with a strong passion for software development. I recently led Team Mecatron's software division to victory at SAUVC 2025, so lookout for our next big thing 😉. Grit and hunger drives success, no pain no gain! 🦾
             </Typography>
-          </Grid>
-
-          
-          {/* Right Panel - 3D model */}
-          <Grid item xs={12} md={8}>
-            <Typography variant="h6" sx={{ mb: 1 }}>3D model — my coding buddy!</Typography>
-            <Box sx={{ width: '100%', height: '60vh', position: 'relative' }}>
-              <Viewer3DWithFormat />
-            </Box>
-            <Typography 
-                variant="caption" 
-                color="text.secondary" 
-                sx={{ display: 'block', textAlign: 'center', mt: 1 }}
-            >
-                Uses{' '}
-                <a 
-                    href="https://github.com/pmndrs/drei" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    style={{ color: 'inherit' }}
-                >
-                    drei
-                </a>
-            </Typography>
-
+            
             {/* Add Snackbar at the end of the return statement */}
             <Snackbar
               open={snackbarOpen}
@@ -343,8 +293,48 @@ function App() {
           </Grid>
         </Grid>
 
+        {/* Experience Section */}
+        <Box sx={{ mb: 6 }}>
+          <Typography variant="sectionTitle" sx={{ fontSize: '2.5rem' }}>Work Experience</Typography>
+          {experience.map((exp, index) => (
+            <Box key={index} sx={{ mb: 4 }}>
+              <Grid container spacing={3} alignItems="center">
+                <Grid item xs={12} md={6}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: 200,
+                      borderRadius: 2,
+                      overflow: 'hidden',
+                      boxShadow: 3
+                    }}
+                  >
+                    <img
+                      src={exp.image}
+                      alt={exp.company}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ pl: { md: 2 } }}>
+                    <Typography variant="h6" color="primary">{exp.position}</Typography>
+                    <Typography variant="subtitle1" color="secondary">{exp.company}</Typography>
+                    <Typography variant="subtitle2" color="text.secondary">{exp.period}</Typography>
+                    <Typography variant="body2">{exp.description}</Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          ))}
+        </Box>
+
         {/* Projects Section */}
-        <Box sx={{ mb: 2 }}>
+        <Box sx={{ mb: 6 }}>
           <Typography variant="sectionTitle" sx={{ fontSize: '2.5rem' }}>Projects</Typography>
           <Grid container spacing={2}>
             {projects.map((project, index) => (
@@ -421,45 +411,6 @@ function App() {
           ))}
         </Box>
 
-        {/* Experience Section */}
-        <Box sx={{ mb: 6 }}>
-          <Typography variant="sectionTitle" sx={{ fontSize: '2.5rem' }}>Work Experience</Typography>
-          {experience.map((exp, index) => (
-            <Box key={index} sx={{ mb: 4 }}>
-              <Grid container spacing={3} alignItems="center">
-                <Grid item xs={12} md={6}>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      height: 200,
-                      borderRadius: 2,
-                      overflow: 'hidden',
-                      boxShadow: 3
-                    }}
-                  >
-                    <img
-                      src={exp.image}
-                      alt={exp.company}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Box sx={{ pl: { md: 2 } }}>
-                    <Typography variant="h6" color="primary">{exp.position}</Typography>
-                    <Typography variant="subtitle1" color="secondary">{exp.company}</Typography>
-                    <Typography variant="subtitle2" color="text.secondary">{exp.period}</Typography>
-                    <Typography variant="body2">{exp.description}</Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
-          ))}
-        </Box>
 
         {/* Education Section */}
         <Box sx={{ mb: 6 }}>
