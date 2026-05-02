@@ -250,11 +250,6 @@ function App() {
               <Typography variant="body1" color="text.secondary" paragraph>
                 I'm currently working as a Project Manager at Shopee overseeing AI Chatbot Projects for both Customer Service and Shop Growth. I studied Mechanical Engineering with a Specialisation in Robotics 🤖 at Nanyang Technological University, Singapore. I have a strong passion for software development, working in large research firms, startups, and competitions. Grit and hunger drives success, no pain no gain! 🦾
               </Typography>
-              <Box sx={{ mb: 4 }}>
-                <Button variant="contained" onClick={() => handleCopy(contactInfo.email, 'Email copied!')}>
-                  Contact Me
-                </Button>
-              </Box>
             </Grid>
 
             {/* Right Column: PDF Viewer */}
@@ -267,7 +262,8 @@ function App() {
                   className="glass-card" 
                   sx={{ 
                     width: '100%', 
-                    height: { xs: '300px', md: '450px' }, 
+                    maxWidth: '600px',
+                    height: { xs: '500px', md: '850px' }, 
                     overflow: 'hidden',
                     borderRadius: 2
                   }}
