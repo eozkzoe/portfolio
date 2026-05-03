@@ -1,17 +1,17 @@
 import React from 'react';
-import { 
-  Container, Box, Typography, Grid, IconButton, ThemeProvider, 
+import {
+  Container, Box, Typography, Grid, IconButton, ThemeProvider,
   createTheme, CssBaseline, Paper, Snackbar, Button,
   useScrollTrigger, Slide
 } from '@mui/material';
-import { 
-  FaLinkedin, FaGithub, FaJs, FaPython, 
-  FaDatabase, FaReact, FaGitAlt, FaDocker, FaFileDownload, 
-  FaMicrosoft, FaLinux, FaUnity 
+import {
+  FaLinkedin, FaGithub, FaJs, FaPython,
+  FaDatabase, FaReact, FaGitAlt, FaDocker, FaFileDownload,
+  FaMicrosoft, FaLinux, FaUnity
 } from 'react-icons/fa';
-import { 
-  SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos, 
-  SiAdobephotoshop, SiDavinciresolve, SiArduino 
+import {
+  SiC, SiCplusplus, SiWebgl, SiThreedotjs, SiRos,
+  SiAdobephotoshop, SiDavinciresolve, SiArduino, SiJira, SiConfluence
 } from 'react-icons/si';
 import { TbView360Number } from 'react-icons/tb';
 import './App.css';
@@ -77,7 +77,7 @@ function App() {
       company: 'Shopee',
       position: 'Project Manager',
       period: 'Jul. 2025 – Present',
-      description: 'Managing AI Chatbot Projects across Backend, Data Science, Ops, and Product teams in China, Indonesia, and Singapore to improve customer satisfaction, deflection rates, reduce hallucinations, and generate shop sales. Coordinating PRDs, technical discussions, cross-team timelines, and conducting weekly/daily standups to solve bad cases during live testing, forecast technical and resource blockers, and ensure SLA and SOP adherence. Leveraged Jira APIs, SQL, Python scripts, and Hive Tables to monitor feature and tech project release and request frequency health and manpower efficiency across all AI product-lines in Shopee. Overseeing transitions from rule-based to skill-based agents, issue to intent KBs, and auto-QA/tagging/training. Launched a project management multi-agent bot and knowledge base to guide process and team onboarding, automate administrative tasks, and provide an interface to sync data across multiple project trackers & platforms',
+      description: 'Managing AI Chatbot projects at Shopee across Backend, Data Science, and Product teams in Singapore, China, and Indonesia. I oversee the development and optimization of AI agents to improve deflection rates and customer satisfaction while reducing hallucinations. My role involves coordinating cross-team timelines, conducting daily standups to resolve technical blockers, and leveraging SQL and Python to monitor project health and efficiency. Additionally, I launched a project management multi-agent bot to automate administrative tasks and streamline team onboarding processes.',
       image: process.env.PUBLIC_URL + '/shopee_exp_photo.jpeg'
     },
     {
@@ -128,7 +128,7 @@ function App() {
       school: 'Technische Universität München',
       degree: 'Mechanical Engineering Exchange',
       period: 'May 2024 - Aug 2024',
-      description: '7 Modules @ 33 ECTS - Grade 2.5/5.0'
+      description: '7 Modules @ 33 ECTS - Grade 2.5/5.0 (Good)'
     }
   ];
 
@@ -170,7 +170,9 @@ function App() {
       { name: 'React', icon: FaReact },
       { name: 'Three.js', icon: SiThreedotjs },
       { name: 'Fusion360', icon: TbView360Number },
-      { name: 'Microsoft Office', icon: FaMicrosoft }
+      { name: 'Microsoft Office', icon: FaMicrosoft },
+      { name: 'Jira', icon: SiJira },
+      { name: 'Confluence', icon: SiConfluence }
     ],
     'Creative': [
       { name: 'Photoshop', icon: SiAdobephotoshop },
@@ -183,14 +185,14 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Box className="App">
-        
+
         {/* Navigation */}
         <HideOnScroll>
           <Box sx={{ position: 'sticky', top: 0, zIndex: 1000, bgcolor: 'background.paper', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             <Container maxWidth="lg">
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 2 }}>
-                <Button 
-                  variant="outlined" 
+                <Button
+                  variant="outlined"
                   startIcon={<FaFileDownload />}
                   href={contactInfo.resume}
                   download
@@ -201,8 +203,8 @@ function App() {
                 <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                   <IconButton href={contactInfo.github} target="_blank" color="inherit"><FaGithub size={20} /></IconButton>
                   <IconButton href={contactInfo.linkedin} target="_blank" color="inherit"><FaLinkedin size={20} /></IconButton>
-                  <Button 
-                    variant="contained" 
+                  <Button
+                    variant="contained"
                     size="small"
                     onClick={() => handleCopy(contactInfo.email, 'Email copied!')}
                     sx={{ ml: 1 }}
@@ -260,12 +262,12 @@ function App() {
                 <Typography variant="h6" gutterBottom sx={{ mb: 3, fontWeight: 700 }}>
                   Check out my feature by NTU!
                 </Typography>
-                <Paper 
-                  className="glass-card" 
-                  sx={{ 
-                    width: '100%', 
+                <Paper
+                  className="glass-card"
+                  sx={{
+                    width: '100%',
                     flexGrow: 1,
-                    minHeight: { xs: '500px', md: '850px' }, 
+                    minHeight: { xs: '500px', md: '850px' },
                     overflow: 'hidden',
                     borderRadius: 2
                   }}
